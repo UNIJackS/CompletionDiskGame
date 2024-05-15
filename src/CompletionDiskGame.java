@@ -51,7 +51,7 @@
      private double score = 0;                         // current score
      private int shotsRemaining = this.numShots;       // How many shots are left
  
-     private ArrayList <Disk> disks = new ArrayList<Disk>(); // The list of disks
+     private ArrayList <CompletionDisk> disks = new ArrayList<CompletionDisk>(); // The list of disks
  
      /**
       * Sets up the user interface:
@@ -111,7 +111,7 @@
       */
      public void initialiseDisks(){
          /*# YOUR CODE HERE */
-         disks = new ArrayList<Disk>();
+         disks = new ArrayList<CompletionDisk>();
          for(int currentDisk =0; currentDisk < numDisks; currentDisk +=1){
             boolean invalidDisk = true;
             while(invalidDisk){
@@ -120,7 +120,7 @@
 
                 int yPos = (int)((Math.random()*(SHOOTING_RANGE_Y-20))+10);
 
-                disks.add(new Disk(xPos,yPos));
+                disks.add(new CompletionDisk(xPos,yPos));
 
                 invalidDisk = false;
 
@@ -203,7 +203,7 @@
 
              
              if(getHitDisk(shotPosX,shotPosY) != null){
-                Disk diskThatGotShot = getHitDisk(shotPosX,shotPosY);
+                CompletionDisk diskThatGotShot = getHitDisk(shotPosX,shotPosY);
                 diskThatGotShot.damage();
                 if(diskThatGotShot.isBroken()){
                     damageNeighbours(diskThatGotShot);
@@ -236,7 +236,7 @@
       * Useful when firing a shot
       * Hint: use the isOn method of the Disk class
       */
-     public Disk getHitDisk(double shotX, double shotY){
+     public CompletionDisk getHitDisk(double shotX, double shotY){
          /*# YOUR CODE HERE */
           
          for(int diskIndex =0; diskIndex < disks.size(); diskIndex +=1){
@@ -258,7 +258,7 @@
       *  so that neighbours that are damaged to their limit will explode and
       *  damage their neighbours, ....
       */
-     public void damageNeighbours(Disk disk){
+     public void damageNeighbours(CompletionDisk disk){
          /*# YOUR CODE HERE */
          disk.explode();
         for(int diskIndex =0; diskIndex < disks.size()-1; diskIndex +=1){
@@ -399,10 +399,13 @@
         score = file.nextDouble();
         shotsRemaining = file.nextInt();
         numDisks = file.nextInt();
-        disks = new ArrayList<Disk>();
+        disks = new ArrayList<CompletionDisk>();
         while(file.hasNext()){
-            disks.add(new Disk(file.nextDouble(),file.nextDouble(),file.nextInt()));
+            disks.add(new CompletionDisk(file.nextDouble(),file.nextDouble(),file.nextInt()));
         }
+        redraw();
+        updateScoreCompletion();
+        
 
  
      }
