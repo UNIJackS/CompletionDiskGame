@@ -31,7 +31,7 @@
   * The game is over when either the player has run out of shots or all the disks have exploded.
   */
  
- public class CompleationDiskGame{
+ public class CompletionDiskGame{
      // Constants for the game geometry: the disks in the shooting range should
      // all be in the rectangle starting at (0,0) with a width of 500 and a height of 150
      // The gun should be on the line at y = 300
@@ -62,7 +62,7 @@
          UI.setMouseListener(this::doMouse);
 
          UI.addSlider("Number of Disks",2,60,DEFAULT_NUMBER_OF_DISKS,this::setNumDisks);
-         UI.addSlider("Number of Shots",2,60,DEFAULT_NUMBER_OF_DISKS,this::setNumShots);
+         UI.addSlider("Number of Shots",2,60,DEFAULT_NUMBER_OF_SHOTS,this::setNumShots);
 
          UI.addButton("Restart", this::startGame);
          UI.addButton("Load Game", this::loadGame);
@@ -111,7 +111,6 @@
       */
      public void initialiseDisks(){
          /*# YOUR CODE HERE */
-         UI.println("compleation");
          disks = new ArrayList<Disk>();
          for(int currentDisk =0; currentDisk < numDisks; currentDisk +=1){
             boolean invalidDisk = true;
@@ -128,7 +127,6 @@
                 
                 if( disks.size() > 1){
                     for(int diskIndex =0; diskIndex < disks.size()-1; diskIndex +=1){
-                        UI.println("disk being checked:" +(disks.size()-1) +"aganst:"+diskIndex);
                         if(disks.get(disks.size()-1).isOverlapping(disks.get(diskIndex))){
                             disks.get(disks.size()-1).damage();
                             disks.remove(disks.size()-1);
@@ -140,7 +138,6 @@
             }
          }
 
-         UI.println(disks.size());
      }
  
      /**
@@ -211,7 +208,6 @@
                 if(diskThatGotShot.isBroken()){
                     damageNeighbours(diskThatGotShot);
                     disks.remove(diskThatGotShot);
-                    UI.println(disks.size());
                 }
                 break;
              }
@@ -401,11 +397,8 @@
         }
 
         score = file.nextDouble();
-        UI.println("Score read");
         shotsRemaining = file.nextInt();
-        UI.println("shotsRemaining read");
         numDisks = file.nextInt();
-        UI.println("numDisks read");
         disks = new ArrayList<Disk>();
         while(file.hasNext()){
             disks.add(new Disk(file.nextDouble(),file.nextDouble(),file.nextInt()));
@@ -460,7 +453,7 @@
      }
  
      public static void main(String[] args){
-         DiskGame dg = new DiskGame();
+        CompletionDiskGame dg = new CompletionDiskGame();
          dg.setupGUI();
          dg.startGame();
      }
