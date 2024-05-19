@@ -207,7 +207,6 @@
                 diskThatGotShot.damage();
                 if(diskThatGotShot.isBroken()){
                     damageNeighbours(diskThatGotShot);
-                    disks.remove(diskThatGotShot);
                 }
                 break;
              }
@@ -258,12 +257,15 @@
       *  so that neighbours that are damaged to their limit will explode and
       *  damage their neighbours, ....
       */
-     public void damageNeighbours(CompletionDisk disk){
-         /*# YOUR CODE HERE */
-         disk.explode();
+      public void damageNeighbours(CompletionDisk disk){
+        disk.explode();
+        disks.remove(disk);
         for(int diskIndex =0; diskIndex < disks.size()-1; diskIndex +=1){
             if(disks.get(diskIndex).isWithinRange(disk)){
                 disks.get(diskIndex).damage();
+                if(disks.get(diskIndex).isBroken()){
+                    damageNeighbours(disks.get(diskIndex));
+                }
             }
         }
      }
