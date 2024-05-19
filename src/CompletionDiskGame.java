@@ -147,7 +147,7 @@
          /*# YOUR CODE HERE */
 
          if(action.equals("released")){
-            if(shotsRemaining > 0){
+            if(shotsRemaining > 0 && !haveAllDisksExplodedCompletion()){
                 if(isWithinFiringZone(x, y)){
                     fireShot(x,y);
                 }
