@@ -260,7 +260,7 @@
       public void damageNeighbours(CompletionDisk disk){
         disk.explode();
         disks.remove(disk);
-        for(int diskIndex =0; diskIndex < disks.size()-1; diskIndex +=1){
+        for(int diskIndex = 0; diskIndex < disks.size()-1; diskIndex +=1){
             if(disks.get(diskIndex).isWithinRange(disk)){
                 disks.get(diskIndex).damage();
                 if(disks.get(diskIndex).isBroken()){
